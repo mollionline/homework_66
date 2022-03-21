@@ -11,7 +11,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 </head>
-<body>
+<body style='background-color: gray'>
 <div class="container" id="container">
 </div>
 <script>
@@ -80,16 +80,18 @@
     let portrayed = document.createElement('h3')
     portrayed.innerText = `Portrayed: ` + object[0].portrayed
     inner_second_div_2_div.appendChild(portrayed)
+
     function getAge(some_date) {
         if (some_date !== 'Unknown') {
             let now = new Date()
             let person = new Date(some_date)
-            let age = (now-person)/(24*3600*365.25*1000)
-            return age|0
+            let age = (now - person) / (24 * 3600 * 365.25 * 1000)
+            return age | 0
         } else if (some_date === 'Unknown') {
             return some_date
         }
     }
+
     body.append(characters_div);
 
 </script>
