@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+</head>
+<body>
+<div class="container" id="container">
+</div>
+<script>
+    const urlRequest = 'https://www.breakingbadapi.com/api/characters/'
+    let urlParams = new URLSearchParams(window.location.search);
+    let param = urlParams.get('id')
+
+    $.ajax({
+        url: urlRequest + `${param}`,
+        method: 'GET',
+        async: false,
+
+        success: function (data, status) {
+            console.log(data)
+            object = data
+            console.log(status);
+        },
+        error: function (response, status) {
+            console.log(status);
+        }
+    });
+
+
+    let body = document.getElementById('container');
+    let characters_div = document.createElement('div');
+    characters_div.classList.add('card');
+    characters_div.classList.add('mb-3');
+    characters_div.style.cssText = "max-width: 1000px;";
+    let second_div = document.createElement('div');
+    second_div.classList.add('row');
+    second_div.classList.add('g-0');
+    characters_div.appendChild(second_div);
+    let inner_second_div_1 = document.createElement('div');
+    inner_second_div_1.classList.add('col-md-4');
+    let img = document.createElement('img');
+    img.classList.add('img-fluid');
+    img.classList.add('rounded-start');
+    img.src = object[0].img;
+    inner_second_div_1.appendChild(img);
+    second_div.appendChild(inner_second_div_1);
+    inner_second_div_2 = document.createElement('div');
+    inner_second_div_2.classList.add('col-md-8');
+    inner_second_div_2_div = document.createElement('div');
+    inner_second_div_2_div.classList.add('card-body');
+    inner_second_div_2.appendChild(inner_second_div_2_div);
+    second_div.appendChild(inner_second_div_2);
+    let character_name = document.createElement('h1');
+    character_name.classList.add('card-title');
+    character_name.innerText = object[0].name;
+    inner_second_div_2_div.appendChild(character_name);
+    let p_birthday = document.createElement('h3')
+    p_birthday.innerText = `Age: ` + getAge(object[0].birthday)
+    inner_second_div_2_div.appendChild(p_birthday)
+    let occupation = document.createElement('h3')
+    occupation.innerText = `Occupation: ` + object[0].occupation
+    inner_second_div_2_div.appendChild(occupation)
+    let status = document.createElement('h3')
+    status.innerText = `Status: ` + object[0].status
+    inner_second_div_2_div.appendChild(status)
+    let appearance = document.createElement('h3')
+    appearance.innerText = `Appearance: ` + object[0].appearance
+    inner_second_div_2_div.appendChild(appearance)
+    let nickname = document.createElement('h3')
+    nickname.innerText = `Nickname: ` + object[0].nickname
+    inner_second_div_2_div.appendChild(nickname)
+    let portrayed = document.createElement('h3')
+    portrayed.innerText = `Portrayed: ` + object[0].portrayed
+    inner_second_div_2_div.appendChild(portrayed)
+    function getAge(some_date) {
+        if (some_date !== 'Unknown') {
+            let now = new Date()
+            let person = new Date(some_date)
+            let age = (now-person)/(24*3600*365.25*1000)
+            return age|0
+        } else if (some_date === 'Unknown') {
+            return some_date
+        }
+    }
+    body.append(characters_div);
+
+</script>
+</body>
+</html>
